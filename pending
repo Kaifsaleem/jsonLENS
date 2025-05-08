@@ -1,0 +1,23 @@
+   // glowing orb
+      <div className="flex items-center justify-center min-h-screen radial-gradient  bg-black">
+        
+      <div className='rounded-full radial-gradient bg-gradient-to-r  bg-blue-400 shadow-[0_0_60px_20px_rgba(0,191,255,0.5)] w-48 h-48 relative'>
+
+          {/* <div className='absolute rounded-full w-1 h-1 bg-white opacity-70'></div> */}
+          <div className="absolute top-[20%] left-[35%] w-3 h-3 bg-white rounded-full opacity-70 animate-star-float clip-path[polygon(50%_0%,_0%_100%,_100%_100%)] shadow-[0_0_8px_4px_rgba(255,255,255,0.9)]"></div>
+          <div className="absolute top-[40%] left-[15%] w-1 h-1 bg-white rounded-full opacity-70 animate-star-float"></div>
+          <div className="absolute top-[80%] left-[25%] w-1 h-1 bg-white rounded-full opacity-70 animate-star-float"></div>
+          <div className="absolute top-[20%] left-[39%] w-1 h-1 bg-white rounded-full opacity-70 animate-star-float"></div>
+<div className="absolute top-[60%] left-[15%] w-3 h-3 bg-white rounded-full opacity-80 animate-star-float clip-path[polygon(50%_0%,_0%_100%,_100%_100%)] shadow-[0_0_8px_4px_rgba(255,255,255,0.9)]"></div>
+
+
+css
+
+@keyframes star-float {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(-6px); opacity: 1; }
+}
+
+.animate-star-float {
+  animation: star-float 3s ease-in-out infinite;
+}

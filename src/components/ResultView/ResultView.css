@@ -1,0 +1,45 @@
+.result-view {
+  color: var(--text-primary);
+}
+
+.result-view h3 {
+  margin: 0 0 1rem 0;
+  color: var(--text-primary);
+}
+
+.result-content {
+  background-color: var(--bg-tertiary);
+  border-radius: 6px;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.result-content pre {
+  margin: 0;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-primary);
+}
+
+.result-content code {
+  color: var(--text-primary);
+}
+
+.error-display {
+  color: var(--error);
+  background-color: rgba(255, 68, 68, 0.1);
+  padding: 1rem;
+  border-radius: 6px;
+  border: 1px solid var(--error);
+  margin-bottom: 1rem;
+}
+
+.empty-result {
+  color: var(--text-secondary);
+  font-style: italic;
+  padding: 1rem;
+  text-align: center;
+  background-color: var(--bg-tertiary);
+  border-radius: 6px;
+}
