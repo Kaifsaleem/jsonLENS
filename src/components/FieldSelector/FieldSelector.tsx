@@ -172,7 +172,15 @@ const findFieldInfo = (path: string, root: FieldInfo | null): FieldInfo | null =
     
     if (fieldInfo.children) {
       Object.entries(fieldInfo.children).forEach(([key, info]) => {
-        if (!['circular-reference', 'max-depth-reached'].includes(info.type)) {
+        // dont shoaw array and object types
+        
+       if (info.type === 'object' || info.type === 'array') {
+        // Don't render the object/array itself, but still process its children
+        if (info.children) {
+          options.push(...renderFieldOptions(info, indent));
+        }
+      } 
+      else if (!['circular-reference', 'max-depth-reached'].includes(info.type)) {
           const style = { paddingLeft: `${indent * 20}px` };
           options.push(
             <option key={info.path} value={info.path} style={style}>
