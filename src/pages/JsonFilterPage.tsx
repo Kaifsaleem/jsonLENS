@@ -56,8 +56,8 @@ export function JsonFilterPage() {
       return;
     }
     if (queryType === 'filter') {
-      console.log(queryType);
-      console.log(query);
+      // console.log(queryType);
+      // console.log(query);
       handleFilterQuery(query);
     }
     else if (queryType === 'map') {

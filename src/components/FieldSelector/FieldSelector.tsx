@@ -6,6 +6,7 @@ interface FieldInfo {
   path: string;
   type: string;
   children?: { [key: string]: FieldInfo };
+  value?: unknown;
 }
 
 interface FieldSelectorProps {
@@ -23,6 +24,7 @@ export const FieldSelector: React.FC<FieldSelectorProps> = ({
   const [selectedField, setSelectedField] = useState<string>('');
   const [selectedOperator, setSelectedOperator] = useState<string>('===');
   const [fieldValue, setFieldValue] = useState<string>('');
+  const [selectedFieldType, setSelectedFieldType] = useState<string>('');
 
   const analyzeJson = (data: unknown, currentPath = '', depth = 0, seen = new WeakSet()): FieldInfo => {
     // Prevent infinite recursion
@@ -30,13 +32,24 @@ export const FieldSelector: React.FC<FieldSelectorProps> = ({
       return { path: currentPath, type: 'max-depth-reached' };
     }
 
-    const type = Array.isArray(data) ? 'array' : typeof data;
-    const info: FieldInfo = { path: currentPath, type };
-
     // Handle null early
     if (data === null) {
       return { path: currentPath, type: 'null' };
     }
+
+    // Determine the actual type and store the value
+    let type = Array.isArray(data) ? 'array' : typeof data;
+    
+    // Detect numeric values, even if they're strings
+    if (type === 'number' || (type === 'string' && !isNaN(Number(data)) && data !== '')) {
+      type = 'number';
+    }
+
+    const info: FieldInfo = { 
+      path: currentPath, 
+      type,
+      value: data 
+    };
 
     // Only process objects and arrays
     if (type === 'object' || type === 'array') {
@@ -71,7 +84,7 @@ export const FieldSelector: React.FC<FieldSelectorProps> = ({
         const analyzedFields = analyzeJson(jsonData);
         setFields(analyzedFields);
       } catch (error) {
-        console.error('Error analyzing JSON:', error);
+        // console.error('Error analyzing JSON:', error);
         setFields(null);
       }
     }
@@ -80,13 +93,77 @@ export const FieldSelector: React.FC<FieldSelectorProps> = ({
   const getOperatorsForType = (type: string): string[] => {
     switch (type) {
       case 'number':
-        return ['===', '!==', '>', '<', '>=', '<='];
+        return ['>', '<', '>=', '<=', '===', '!=='];
       case 'string':
         return ['===', '!==', 'includes', 'startsWith', 'endsWith'];
       case 'boolean':
         return ['===', '!=='];
       default:
         return ['===', '!=='];
+    }
+  };
+
+  // const findFieldInfo = (path: string): FieldInfo | null => {
+  //   console.log("path", path)
+  //   console.log("fields",fields)
+  //   if (!fields) return null;
+  //   const parts = path.split('.');
+  //   let current = fields;
+  //   console.log(current)
+  //   console.log(current.children)
+  //   console.log(path)
+  //   console.log(parts)
+  //   for (const part of parts) {
+  //     if (!current.children) return null;
+  //     console.log(part)
+  //     let key = part;
+  //     if (key.includes('[n]')) {
+  //       key = '[n]';
+  //     }
+  //     console.log(current.children[key])
+  //     if (!current.children[key]) return null;
+  //     current = current.children[key];
+  //   }
+  //   console.log("current",current)
+  //   return current;
+  // };
+const findFieldInfo = (path: string, root: FieldInfo | null): FieldInfo | null => {
+  if (!root || !path) return null;
+
+  const pathSegments = path
+    .replace(/\[n\]/g, '.[' + 'n' + ']') // normalize '[n]' usage (defensive)
+    .split('.')
+    .map(segment => segment === '[n]' ? '[n]' : segment); // keep '[n]' as is
+
+  let current = root;
+
+  for (const segment of pathSegments) {
+    if (!current.children) return null;
+
+    const key = segment === '[n]' ? '[n]' : segment;
+    current = current.children[key];
+    if (!current) return null;
+  }
+
+  console.log(current)
+  return current;
+};
+  const handleFieldSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const path = event.target.value;
+    setSelectedField(path);
+    
+    // Find and set the field type
+    const fieldInfo = findFieldInfo(path, fields);
+    if (fieldInfo) {
+      const type = fieldInfo.type;
+      console.log('Selected field type:', type); // Debug log
+      setSelectedFieldType(type);
+      console.log(type)
+      
+      // Reset operator and value when field changes
+      const operators = getOperatorsForType(type);
+      setSelectedOperator(operators[0]);
+      setFieldValue('');
     }
   };
 
@@ -128,7 +205,7 @@ export const FieldSelector: React.FC<FieldSelectorProps> = ({
         <label>Select Field:</label>
         <select 
           value={selectedField}
-          onChange={(e) => setSelectedField(e.target.value)}
+          onChange={handleFieldSelect}
           className="select-input"
         >
           <option value="">Choose a field...</option>
@@ -139,26 +216,26 @@ export const FieldSelector: React.FC<FieldSelectorProps> = ({
       {selectedField && (
         <>
           <div className="operator-select">
-            <label>Select Operator:</label>
+            <label>Select Operator ({selectedFieldType} operations):</label>
             <select
               value={selectedOperator}
               onChange={(e) => setSelectedOperator(e.target.value)}
               className="select-input"
             >
-              {getOperatorsForType(typeof selectedField).map(op => (
+              {getOperatorsForType(selectedFieldType).map(op => (
                 <option key={op} value={op}>{op}</option>
               ))}
             </select>
           </div>
 
           <div className="value-input">
-            <label>Enter Value:</label>
+            <label>Enter {selectedFieldType} Value:</label>
             <input
-              type="text"
+              type={selectedFieldType === 'number' ? 'number' : 'text'}
               value={fieldValue}
               onChange={(e) => setFieldValue(e.target.value)}
               className="text-input"
-              placeholder="Enter value..."
+              placeholder={`Enter ${selectedFieldType} value...`}
             />
           </div>
 

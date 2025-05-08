@@ -11,9 +11,15 @@ export const QueryEditor: React.FC<QueryEditorProps> = ({ onQueryExecute, jsonDa
   const [queryType, setQueryType] = useState('filter');
 
   const handleFieldSelect = (field: string, operator: string, value: string) => {
-    // Handle the field path and build appropriate query
-    const finalValue = typeof value === 'string' && !value.startsWith('"') ? 
-      `"${value}"` : value;
+    // Determine if the value should be treated as a number
+    const isNumber = !isNaN(Number(value)) && !isNaN(parseFloat(value));
+    
+    // Format the value based on type and operator
+    const finalValue = isNumber && ['>', '<', '>=', '<=', '===', '!=='].includes(operator)
+      ? value // Keep numeric values as is
+      : typeof value === 'string' && !value.startsWith('"') 
+        ? `"${value}"` // Wrap string values in quotes
+        : value;
 
     let query: string;
     if (field.includes('[n]')) {
@@ -27,14 +33,24 @@ export const QueryEditor: React.FC<QueryEditorProps> = ({ onQueryExecute, jsonDa
       if (['includes', 'startsWith', 'endsWith'].includes(operator)) {
         query = `data.${arrayPath}.filter(item => item.${fieldPath}.${operator}(${finalValue}))`;
       } else {
-        query = `data.${arrayPath}.filter(item => item.${fieldPath} ${operator} ${finalValue})`;
+        // For numeric comparisons on array items
+        if (isNumber && ['>', '<', '>=', '<='].includes(operator)) {
+          query = `data.${arrayPath}.filter(item => Number(item.${fieldPath}) ${operator} ${finalValue})`;
+        } else {
+          query = `data.${arrayPath}.filter(item => item.${fieldPath} ${operator} ${finalValue})`;
+        }
       }
     } else {
       // Handle regular fields
       if (['includes', 'startsWith', 'endsWith'].includes(operator)) {
         query = `data.${field}.${operator}(${finalValue})`;
       } else {
-        query = `data.${field} ${operator} ${finalValue}`;
+        // For numeric comparisons on regular fields
+        if (isNumber && ['>', '<', '>=', '<='].includes(operator)) {
+          query = `Number(data.${field}) ${operator} ${finalValue}`;
+        } else {
+          query = `data.${field} ${operator} ${finalValue}`;
+        }
       }
     }
 
