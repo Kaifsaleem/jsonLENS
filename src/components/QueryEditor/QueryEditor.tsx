@@ -65,8 +65,8 @@ export const QueryEditor: React.FC<QueryEditorProps> = ({ onQueryExecute, jsonDa
   };
 
   return (
-    <div className="h-full bg-white dark:bg-gray-800 overflow-hidden flex flex-col">
-      <div className="flex space-x-4 p-4 border-b border-gray-200 dark:border-gray-700">
+    <div className="h-full bg-white dark:bg-gray-900 overflow-hidden flex flex-col rounded">
+      <div className="flex space-x-4 p-3 border-b border-gray-200 dark:border-gray-700">
           <button
             className={`px-4 py-2 rounded-md font-medium transition-colors ${
               queryType === 'filter'
@@ -88,7 +88,7 @@ export const QueryEditor: React.FC<QueryEditorProps> = ({ onQueryExecute, jsonDa
             Map
           </button>
         </div>
-        <div className="flex-1 overflow-y-auto p-4">
+        <div className="flex-1 overflow-y-auto p-2">
           <FieldSelector
             jsonData={jsonData}
             onFieldSelect={handleFieldSelect}

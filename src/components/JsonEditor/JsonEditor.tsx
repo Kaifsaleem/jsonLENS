@@ -21,8 +21,8 @@ export const JsonEditor: React.FC<JsonEditorProps> = ({ onJsonChange }) => {
   };
 
   return (
-    <div className="h-full bg-white dark:bg-gray-800 overflow-hidden">
-      <div className="h-full">
+    <div className="h-full bg-white dark:bg-gray-900 overflow-hidden">
+      <div className="h-full p-3">
         <textarea
           value={jsonInput}
           onChange={(e) => handleInputChange(e.target.value)}

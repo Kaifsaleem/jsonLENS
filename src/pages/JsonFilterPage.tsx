@@ -67,17 +67,13 @@ export function JsonFilterPage() {
   };
 
   return (
-    <div className="min-h-screen w-screen bg-gray-50 dark:bg-gray-900 flex overflow-hidden">
-      <div className="w-1/2 flex flex-col">
-        <div className="h-1/2">
-          <JsonEditor onJsonChange={handleJsonChange} />
-        </div>
-        <div className="h-1/2">
-          <QueryEditor onQueryExecute={handleQueryExecute} jsonData={jsonData} />
-        </div>
+    <div className='container flex flex-row h-full w-full'>
+      <div className="container flex flex-col h-full w-full p-0.5 gap-x-1">
+      <JsonEditor onJsonChange={handleJsonChange} />
+      <QueryEditor onQueryExecute={handleQueryExecute} jsonData={jsonData} />
       </div>
-      <div className="w-1/2">
-        <ResultView result={result} error={error} />
+      <div className="container w-full h-full">
+      <ResultView result={result} error={error} />
       </div>
     </div>
   );

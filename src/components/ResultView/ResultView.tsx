@@ -14,11 +14,11 @@ export const ResultView: React.FC<ResultViewProps> = ({ result, error }) => {
   };
 
   return (
-    <div className="h-full bg-white dark:bg-gray-800 overflow-hidden flex flex-col">
+    <div className="h-full bg-white dark:bg-gray-900 overflow-hidden flex flex-col">
       
-      <div className="flex-1 overflow-auto p-4">
+      <div className="flex-1 overflow-hidden p-3">
         {error ? (
-          <div className="p-4 bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-100 rounded-lg">
+          <div className="bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-100 rounded-lg">
             {error}
           </div>
         ) : (
