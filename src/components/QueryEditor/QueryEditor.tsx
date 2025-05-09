@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { FieldSelector } from '../FieldSelector/FieldSelector';
-import './QueryEditor.css';
-
 interface QueryEditorProps {
   onQueryExecute: (query: string, queryType: string) => void;
   jsonData: unknown;
@@ -67,27 +65,36 @@ export const QueryEditor: React.FC<QueryEditorProps> = ({ onQueryExecute, jsonDa
   };
 
   return (
-    <div className="query-editor">
-      <h3>Query Builder</h3>
-      <div className="query-type-selector">
-        <button
-          className={`type-btn ${queryType === 'filter' ? 'active' : ''}`}
-          onClick={() => setQueryType('filter')}
-        >
-          Filter
-        </button>
-        <button
-          className={`type-btn ${queryType === 'map' ? 'active' : ''}`}
-          onClick={() => setQueryType('map')}
-        >
-          Map
-        </button>
-      </div>
-      <FieldSelector
-        jsonData={jsonData}
-        onFieldSelect={handleFieldSelect}
-        queryType={queryType}
-      />
+    <div className="h-full bg-white dark:bg-gray-900 overflow-hidden flex flex-col rounded">
+      <div className="flex space-x-4 p-3 border-b border-gray-200 dark:border-gray-700">
+          <button
+            className={`px-4 py-2 rounded-md font-medium transition-colors ${
+              queryType === 'filter'
+                ? 'bg-blue-600 text-white'
+                : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+            }`}
+            onClick={() => setQueryType('filter')}
+          >
+            Filter
+          </button>
+          <button
+            className={`px-4 py-2 rounded-md font-medium transition-colors ${
+              queryType === 'map'
+                ? 'bg-blue-600 text-white'
+                : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+            }`}
+            onClick={() => setQueryType('map')}
+          >
+            Map
+          </button>
+        </div>
+        <div className="flex-1 overflow-y-auto p-2">
+          <FieldSelector
+            jsonData={jsonData}
+            onFieldSelect={handleFieldSelect}
+            queryType={queryType}
+          />
+        </div>
     </div>
   );
 };

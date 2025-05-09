@@ -1,6 +1,4 @@
 import React from 'react';
-import './ResultView.css';
-
 interface ResultViewProps {
   result: unknown;
   error: string | null;
@@ -16,13 +14,17 @@ export const ResultView: React.FC<ResultViewProps> = ({ result, error }) => {
   };
 
   return (
-    <div className="result-view">
-      <h3>Result</h3>
-      <div className={`result-content ${error ? 'error' : ''}`}>
+    <div className="h-full bg-white dark:bg-gray-900 overflow-hidden flex flex-col">
+      
+      <div className="flex-1 overflow-hidden p-3">
         {error ? (
-          <div className="error-message">{error}</div>
+          <div className="bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-100 rounded-lg">
+            {error}
+          </div>
         ) : (
-          <pre>{formatResult(result)}</pre>
+          <pre className="w-full h-full p-4 font-mono text-sm text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded">
+            {formatResult(result)}
+          </pre>
         )}
       </div>
     </div>

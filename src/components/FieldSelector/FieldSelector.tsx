@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
-import './FieldSelector.css';
-
 interface FieldInfo {
   path: string;
   type: string;
@@ -83,8 +81,7 @@ export const FieldSelector: React.FC<FieldSelectorProps> = ({
       try {
         const analyzedFields = analyzeJson(jsonData);
         setFields(analyzedFields);
-      } catch (error) {
-        // console.error('Error analyzing JSON:', error);
+      } catch {
         setFields(null);
       }
     }
@@ -208,13 +205,15 @@ const findFieldInfo = (path: string, root: FieldInfo | null): FieldInfo | null =
   }
 
   return (
-    <div className="field-selector">
-      <div className="field-select">
-        <label>Select Field:</label>
+    <div className="space-y-4">
+      <div className="space-y-2">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          Select Field:
+        </label>
         <select 
           value={selectedField}
           onChange={handleFieldSelect}
-          className="select-input"
+          className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
         >
           <option value="">Choose a field...</option>
           {renderFieldOptions(fields)}
@@ -222,13 +221,15 @@ const findFieldInfo = (path: string, root: FieldInfo | null): FieldInfo | null =
       </div>
 
       {selectedField && (
-        <>
-          <div className="operator-select">
-            <label>Select Operator ({selectedFieldType} operations):</label>
+        <div className="space-y-4 bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+          <div className="space-y-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              Select Operator ({selectedFieldType} operations):
+            </label>
             <select
               value={selectedOperator}
               onChange={(e) => setSelectedOperator(e.target.value)}
-              className="select-input"
+              className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
             >
               {getOperatorsForType(selectedFieldType).map(op => (
                 <option key={op} value={op}>{op}</option>
@@ -236,25 +237,27 @@ const findFieldInfo = (path: string, root: FieldInfo | null): FieldInfo | null =
             </select>
           </div>
 
-          <div className="value-input">
-            <label>Enter {selectedFieldType} Value:</label>
+          <div className="space-y-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              Enter {selectedFieldType} Value:
+            </label>
             <input
               type={selectedFieldType === 'number' ? 'number' : 'text'}
               value={fieldValue}
               onChange={(e) => setFieldValue(e.target.value)}
-              className="text-input"
+              className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
               placeholder={`Enter ${selectedFieldType} value...`}
             />
           </div>
 
           <button 
             onClick={handleSubmit}
-            className="submit-button"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
             disabled={!selectedField || !selectedOperator || !fieldValue}
           >
             Add Condition
           </button>
-        </>
+        </div>
       )}
     </div>
   );

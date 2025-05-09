@@ -2,8 +2,6 @@ import { useState } from 'react';
 import { JsonEditor } from '../components/JsonEditor/JsonEditor';
 import { QueryEditor } from '../components/QueryEditor/QueryEditor';
 import { ResultView } from '../components/ResultView/ResultView';
-import './JsonFilterPage.css';
-
 export function JsonFilterPage() {
   const [jsonData, setJsonData] = useState<unknown>(null);
   const [result, setResult] = useState<unknown>(null);
@@ -69,18 +67,13 @@ export function JsonFilterPage() {
   };
 
   return (
-    <div className="json-filter-page">
-      <h2>JSON Filter</h2>
-      <div className="editors-container">
-        <div className="editor-panel">
-          <JsonEditor onJsonChange={handleJsonChange} />
-        </div>
-        <div className="editor-panel">
-          <QueryEditor onQueryExecute={handleQueryExecute} jsonData={jsonData} />
-        </div>
+    <div className='container flex flex-row h-full w-full'>
+      <div className="container flex flex-col h-full w-full p-0.5 gap-x-1">
+      <JsonEditor onJsonChange={handleJsonChange} />
+      <QueryEditor onQueryExecute={handleQueryExecute} jsonData={jsonData} />
       </div>
-      <div className="result-panel">
-        <ResultView result={result} error={error} />
+      <div className="container w-full h-full">
+      <ResultView result={result} error={error} />
       </div>
     </div>
   );
