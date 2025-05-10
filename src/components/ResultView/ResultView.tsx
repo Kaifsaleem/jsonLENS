@@ -74,26 +74,26 @@ export const ResultView: React.FC<ResultViewProps> = ({
   };
 
   return (
-    <div className="h-full bg-white dark:bg-gray-900 overflow-hidden flex flex-col">
-      <div className="flex items-center justify-between p-2 border-b border-gray-200 dark:border-gray-700">
+    <div className="h-full bg-light-background dark:bg-dark-background overflow-hidden flex flex-col border border-light-border dark:border-dark-border rounded">
+      <div className="flex items-center justify-between p-2 border-b border-light-border dark:border-dark-border">
         <div className="flex space-x-2">
           <button
             onClick={handleCopy}
-            className="p-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="p-2 text-light-secondary hover:text-light-primary dark:text-dark-secondary dark:hover:text-dark-primary rounded-lg hover:bg-light-border dark:hover:bg-dark-border"
             title="Copy"
           >
             <DocumentDuplicateIcon className="h-5 w-5" />
           </button>
           <button
             onClick={handleReset}
-            className="p-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="p-2 text-light-secondary hover:text-light-primary dark:text-dark-secondary dark:hover:text-dark-primary rounded-lg hover:bg-light-border dark:hover:bg-dark-border"
             title="Reset"
           >
             <ArrowPathIcon className="h-5 w-5" />
           </button>
           <button
             onClick={handleCut}
-            className="p-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="p-2 text-light-secondary hover:text-light-primary dark:text-dark-secondary dark:hover:text-dark-primary rounded-lg hover:bg-light-border dark:hover:bg-dark-border"
             title="Cut"
           >
             <ScissorsIcon className="h-5 w-5" />
@@ -102,19 +102,19 @@ export const ResultView: React.FC<ResultViewProps> = ({
         <div className="relative">
           <button
             onClick={() => setShowExportMenu(!showExportMenu)}
-            className="flex items-center space-x-1 px-3 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            className="flex items-center space-x-1 px-3 py-2 bg-light-accent dark:bg-dark-accent text-light-background dark:text-dark-background rounded-lg hover:bg-light-accent/90 dark:hover:bg-dark-accent/90 focus:outline-none focus:ring-2 focus:ring-light-accent dark:focus:ring-dark-accent focus:ring-offset-2"
           >
             <span>Export</span>
             <ChevronDownIcon className="h-4 w-4" />
           </button>
           {showExportMenu && (
-            <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg py-1 z-10">
+            <div className="absolute right-0 mt-2 w-48 bg-light-background dark:bg-dark-background border border-light-border dark:border-dark-border rounded-lg shadow-lg py-1 z-10">
               {/* <button
                 onClick={() => {
                   exportToExcel();
                   setShowExportMenu(false);
                 }}
-                className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                className="block w-full text-left px-4 py-2 text-sm text-light-primary dark:text-dark-primary hover:bg-light-border dark:hover:bg-dark-border"
               >
                 Export as Excel
               </button> */}
@@ -123,7 +123,7 @@ export const ResultView: React.FC<ResultViewProps> = ({
                   exportToDoc();
                   setShowExportMenu(false);
                 }}
-                className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                className="block w-full text-left px-4 py-2 text-sm text-light-primary dark:text-dark-primary hover:bg-light-border dark:hover:bg-dark-border"
               >
                 Export as PDF
               </button>
@@ -132,7 +132,7 @@ export const ResultView: React.FC<ResultViewProps> = ({
                   exportToJson();
                   setShowExportMenu(false);
                 }}
-                className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                className="block w-full text-left px-4 py-2 text-sm text-light-primary dark:text-dark-primary hover:bg-light-border dark:hover:bg-dark-border"
               >
                 Export as JSON
               </button>
@@ -146,7 +146,7 @@ export const ResultView: React.FC<ResultViewProps> = ({
             {error}
           </div>
         ) : (
-          <pre className="w-full h-full max-h-[700px] p-4 font-mono text-sm text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg overflow-auto">
+          <pre className="w-full h-full max-h-[700px] p-4 font-mono text-sm text-light-primary dark:text-dark-primary bg-light-background dark:bg-dark-background border border-light-border dark:border-dark-border rounded-lg overflow-auto">
             {formatResult(result)}
           </pre>
         )}

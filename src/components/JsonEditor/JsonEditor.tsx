@@ -32,20 +32,20 @@ export const JsonEditor: React.FC<JsonEditorProps> = ({ onJsonChange }) => {
 
 
   return (
-    <div className="h-full bg-white dark:bg-gray-900 overflow-hidden">
+    <div className="h-full bg-light-background dark:bg-dark-background overflow-hidden border border-light-border dark:border-dark-border rounded">
       <div className="h-full p-3">
         <textarea
           value={jsonInput}
           onChange={(e) => handleInputChange(e.target.value)}
           className={`w-full h-full p-4 rounded-md font-mono text-sm 
-            bg-gray-50 dark:bg-gray-900 
-            text-gray-900 dark:text-white
+            bg-light-background dark:bg-dark-background 
+            text-light-primary dark:text-dark-primary
             border ${error 
               ? 'border-red-500 dark:border-red-400' 
-              : 'border-gray-300 dark:border-gray-600'
+              : 'border-light-border dark:border-dark-border'
             }
-            focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent
-            placeholder-gray-400 dark:placeholder-gray-500`}
+            focus:ring-2 focus:ring-light-accent dark:focus:ring-dark-accent focus:border-transparent
+            placeholder-light-secondary dark:placeholder-dark-secondary`}
         />
         {error && (
           <div className="mt-2 text-red-600 dark:text-red-400 text-sm">

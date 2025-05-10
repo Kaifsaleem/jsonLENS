@@ -8,7 +8,7 @@ export function JsonFilterPage() {
   const [result, setResult] = useState<unknown>(null);
   const [error, setError] = useState<string | null>(null);
   const [queryType, setQueryType] = useState<'filter' | 'map'>('filter');
-
+console.log(queryType)
   const handleJsonChange = (json: string) => {
     try {
       const parsed = JSON.parse(json);
@@ -35,7 +35,7 @@ export function JsonFilterPage() {
       const functionBody = `
         return ${query};
       `;
-      
+
       // Create the function
       const filterFn = new Function('data', functionBody);
 
@@ -60,10 +60,6 @@ export function JsonFilterPage() {
     }
     else if (queryType === 'map') {
       try {
-        // First line of query must reference 'data'
-        // if (!query.trim().startsWith('data.')) {
-        //   throw new Error('in query must return your answer');
-        // }
 
         const functionBody = `${query}`;
         
@@ -80,8 +76,8 @@ export function JsonFilterPage() {
   };
 
   return (
-    <div className='container flex flex-row h-full w-full'>
-      <div className="container flex flex-col h-full w-full p-0.5 gap-4">
+    <div className='container flex flex-row h-full w-full bg-light-background dark:bg-dark-background'>
+      <div className="container flex flex-col h-full w-full p-0.5 gap-4 text-light-primary dark:text-dark-primary">
         <JsonEditor onJsonChange={handleJsonChange} />
         {/* {jsonData !== null && ( */}
           <>

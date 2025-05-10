@@ -207,13 +207,13 @@ const findFieldInfo = (path: string, root: FieldInfo | null): FieldInfo | null =
   return (
     <div className="space-y-4">
       <div className="space-y-2">
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        <label className="block text-sm font-medium text-light-primary dark:text-dark-primary mb-1">
           Select Field:
         </label>
         <select 
           value={selectedField}
           onChange={handleFieldSelect}
-          className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+          className="w-full px-3 py-2 rounded-md border border-light-border dark:border-dark-border bg-light-background dark:bg-dark-background text-light-primary dark:text-dark-primary focus:ring-2 focus:ring-light-accent dark:focus:ring-dark-accent"
         >
           <option value="">Choose a field...</option>
           {renderFieldOptions(fields)}
@@ -221,15 +221,15 @@ const findFieldInfo = (path: string, root: FieldInfo | null): FieldInfo | null =
       </div>
 
       {selectedField && (
-        <div className="space-y-4 bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+        <div className="space-y-4 bg-light-border/10 dark:bg-dark-border/10 p-4 rounded-lg border border-light-border dark:border-dark-border">
           <div className="space-y-2">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            <label className="block text-sm font-medium text-light-primary dark:text-dark-primary">
               Select Operator ({selectedFieldType} operations):
             </label>
             <select
               value={selectedOperator}
               onChange={(e) => setSelectedOperator(e.target.value)}
-              className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+              className="w-full px-3 py-2 rounded-md border border-light-border dark:border-dark-border bg-light-background dark:bg-dark-background text-light-primary dark:text-dark-primary focus:ring-2 focus:ring-light-accent dark:focus:ring-dark-accent"
             >
               {getOperatorsForType(selectedFieldType).map(op => (
                 <option key={op} value={op}>{op}</option>
@@ -238,21 +238,21 @@ const findFieldInfo = (path: string, root: FieldInfo | null): FieldInfo | null =
           </div>
 
           <div className="space-y-2">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            <label className="block text-sm font-medium text-light-primary dark:text-dark-primary">
               Enter {selectedFieldType} Value:
             </label>
             <input
               type={selectedFieldType === 'number' ? 'number' : 'text'}
               value={fieldValue}
               onChange={(e) => setFieldValue(e.target.value)}
-              className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+              className="w-full px-3 py-2 rounded-md border border-light-border dark:border-dark-border bg-light-background dark:bg-dark-background text-light-primary dark:text-dark-primary focus:ring-2 focus:ring-light-accent dark:focus:ring-dark-accent"
               placeholder={`Enter ${selectedFieldType} value...`}
             />
           </div>
 
           <button 
             onClick={handleSubmit}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+            className="w-full bg-light-accent dark:bg-dark-accent hover:bg-light-accent/90 dark:hover:bg-dark-accent/90 text-light-background dark:text-dark-background font-medium py-2 px-4 rounded-md transition-colors disabled:bg-light-border dark:disabled:bg-dark-border disabled:cursor-not-allowed"
             disabled={!selectedField || !selectedOperator || !fieldValue}
           >
             Add Condition

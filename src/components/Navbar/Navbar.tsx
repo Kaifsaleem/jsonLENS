@@ -1,18 +1,15 @@
 import { NavLink } from 'react-router-dom';
+import { useTheme } from '../../context/ThemeContext';
 
-interface NavbarProps {
-  theme: 'dark' | 'light';
-  onThemeToggle: () => void;
-}
-
-export const Navbar: React.FC<NavbarProps> = ({ theme, onThemeToggle }) => {
+export const Navbar = () => {
+  const { isDarkMode, toggleTheme } = useTheme();
   return (
-    <nav className="bg-gray-100 dark:bg-gray-900 shadow">
+    <nav className="bg-light-background dark:bg-dark-background shadow border-b border-light-border dark:border-dark-border">
       <div className="w-full px-4">
         <div className="flex justify-between h-16 items-center">
           <div className="flex items-center space-x-4">
             <img src="/jsonLens.png" alt="jsonLENS logo" className="h-10 w-auto" />
-            <span className="text-xl font-bold text-blue-600 dark:text-blue-400">jsonLENS</span>
+            <span className="text-xl font-bold text-light-accent dark:text-dark-accent">jsonLENS</span>
           </div>
           <div className="flex items-center space-x-8">
             <NavLink 
@@ -20,8 +17,8 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, onThemeToggle }) => {
               className={({ isActive }) => 
                 `text-sm font-medium transition-colors ${
                   isActive 
-                    ? 'text-blue-600 dark:text-blue-400' 
-                    : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
+                    ? 'text-light-accent dark:text-dark-accent' 
+                    : 'text-light-primary dark:text-dark-primary hover:text-light-accent dark:hover:text-dark-accent'
                 }`
               }
               end
@@ -33,19 +30,19 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, onThemeToggle }) => {
               className={({ isActive }) => 
                 `text-sm font-medium transition-colors ${
                   isActive 
-                    ? 'text-blue-600 dark:text-blue-400' 
-                    : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
+                    ? 'text-light-accent dark:text-dark-accent' 
+                    : 'text-light-primary dark:text-dark-primary hover:text-light-accent dark:hover:text-dark-accent'
                 }`
               }
             >
               Contact
             </NavLink>
             <button 
-              onClick={onThemeToggle}
-              className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-              aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+              onClick={toggleTheme}
+              className="p-2 rounded-full hover:bg-light-border dark:hover:bg-dark-border transition-colors"
+              aria-label={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}
             >
-              {theme === 'dark' ? '☀️' : '🌙'}
+              {isDarkMode ? '☀️' : '🌙'}
             </button>
           </div>
         </div>

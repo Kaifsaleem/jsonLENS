@@ -53,7 +53,7 @@ const frontendUserNames = data.users
   return (
     <div className="flex flex-col gap-3">
       <textarea
-        className="w-full h-68 p-3 font-mono text-sm bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full h-68 p-3 font-mono text-sm bg-light-background dark:bg-dark-background text-light-primary dark:text-dark-primary border border-light-border dark:border-dark-border rounded focus:outline-none focus:ring-2 focus:ring-light-accent dark:focus:ring-dark-accent"
         value={code}
         onChange={(e) => setCode(e.target.value)}
         // placeholder="Enter JavaScript code here. Use 'data' to reference the JSON data.
@@ -62,7 +62,7 @@ const frontendUserNames = data.users
       />
       <button
         onClick={handleSubmit}
-        className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+        className="px-4 py-2 bg-light-accent dark:bg-dark-accent text-light-background dark:text-dark-background rounded-md hover:bg-light-accent/90 dark:hover:bg-dark-accent/90 transition-colors"
       >
         Execute
       </button>

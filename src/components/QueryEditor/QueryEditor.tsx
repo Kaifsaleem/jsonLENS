@@ -76,13 +76,13 @@ export const QueryEditor: React.FC<QueryEditorProps> = ({ onQueryExecute, jsonDa
   };
 
   return (
-    <div className="h-full bg-white dark:bg-gray-900 overflow-hidden flex flex-col rounded">
-      <div className="flex space-x-4 p-3 border-b border-gray-200 dark:border-gray-700">
+    <div className="h-full bg-light-background dark:bg-dark-background overflow-hidden flex flex-col rounded border border-light-border dark:border-dark-border">
+      <div className="flex space-x-4 p-3 border-b border-light-border dark:border-dark-border">
         <button
           className={`px-4 py-2 rounded-md font-medium transition-colors ${
             queryType === 'filter'
-              ? 'bg-blue-600 text-white'
-              : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+              ? 'bg-light-accent dark:bg-dark-accent text-light-background dark:text-dark-background'
+              : 'bg-light-border dark:bg-dark-border text-light-primary dark:text-dark-primary hover:bg-light-accent/10 dark:hover:bg-dark-accent/10'
           }`}
           onClick={() => setQueryType('filter')}
         >
@@ -91,8 +91,8 @@ export const QueryEditor: React.FC<QueryEditorProps> = ({ onQueryExecute, jsonDa
         <button
           className={`px-4 py-2 rounded-md font-medium transition-colors ${
             queryType === 'map'
-              ? 'bg-blue-600 text-white'
-              : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+              ? 'bg-light-accent dark:bg-dark-accent text-light-background dark:text-dark-background'
+              : 'bg-light-border dark:bg-dark-border text-light-primary dark:text-dark-primary hover:bg-light-accent/10 dark:hover:bg-dark-accent/10'
           }`}
           onClick={() => setQueryType('map')}
         >

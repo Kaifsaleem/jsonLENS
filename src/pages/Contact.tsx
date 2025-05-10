@@ -47,8 +47,8 @@ export default function Contact() {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <h1 className="text-3xl font-bold mb-8 text-center text-gray-900 dark:text-white">Contact Us</h1>
-      <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-8">
+      <h1 className="text-3xl font-bold mb-8 text-center text-light-primary dark:text-dark-primary">Contact Us</h1>
+      <div className="bg-light-background dark:bg-dark-background shadow-lg rounded-lg p-8 border border-light-border dark:border-dark-border">
         {status === 'success' ? (
           <div className="p-4 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-100 rounded-lg text-center">
             Thank you for your message! We'll get back to you soon.
@@ -56,7 +56,7 @@ export default function Contact() {
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label htmlFor="name" className="block text-sm font-medium text-light-primary dark:text-dark-primary mb-1">
                 Name
               </label>
               <input
@@ -66,11 +66,11 @@ export default function Contact() {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                className="w-full px-4 py-2 rounded-md border border-light-border dark:border-dark-border focus:ring-2 focus:ring-light-accent dark:focus:ring-dark-accent focus:border-transparent bg-light-background dark:bg-dark-background text-light-primary dark:text-dark-primary"
               />
             </div>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label htmlFor="email" className="block text-sm font-medium text-light-primary dark:text-dark-primary mb-1">
                 Email
               </label>
               <input
@@ -80,11 +80,11 @@ export default function Contact() {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                className="w-full px-4 py-2 rounded-md border border-light-border dark:border-dark-border focus:ring-2 focus:ring-light-accent dark:focus:ring-dark-accent focus:border-transparent bg-light-background dark:bg-dark-background text-light-primary dark:text-dark-primary"
               />
             </div>
             <div>
-              <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label htmlFor="message" className="block text-sm font-medium text-light-primary dark:text-dark-primary mb-1">
                 Message
               </label>
               <textarea
@@ -94,13 +94,13 @@ export default function Contact() {
                 onChange={handleChange}
                 required
                 rows={5}
-                className="w-full px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white resize-none"
+                className="w-full px-4 py-2 rounded-md border border-light-border dark:border-dark-border focus:ring-2 focus:ring-light-accent dark:focus:ring-dark-accent focus:border-transparent bg-light-background dark:bg-dark-background text-light-primary dark:text-dark-primary resize-none"
               />
             </div>
             <button 
               type="submit" 
               disabled={status === 'loading'}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+              className="w-full bg-light-accent dark:bg-dark-accent hover:bg-light-accent/90 dark:hover:bg-dark-accent/90 text-light-background dark:text-dark-background font-medium py-2 px-4 rounded-md transition-colors disabled:bg-light-border dark:disabled:bg-dark-border disabled:cursor-not-allowed"
             >
               {status === 'loading' ? 'Sending...' : 'Send Message'}
             </button>
