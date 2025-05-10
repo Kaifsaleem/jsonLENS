@@ -1,12 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import JsonData  from '../../assets/default.json'; // Adjust the import path as necessary
 interface JsonEditorProps {
   onJsonChange: (json: string) => void;
 }
 
 export const JsonEditor: React.FC<JsonEditorProps> = ({ onJsonChange }) => {
-  const [jsonInput, setJsonInput] = useState('');
+  const defaultJsonData = JSON.stringify(JsonData, null, 2);
+  useEffect(() => {
+    try {
+      JSON.parse(defaultJsonData);
+      onJsonChange(defaultJsonData);
+    } catch (e) {
+      setError(`Default JSON is invalid error ${e}`);
+    }
+  }, []);
+  const [jsonInput, setJsonInput] = useState(defaultJsonData);
   const [error, setError] = useState<string | null>(null);
-
+  
   const handleInputChange = (value: string) => {
     setJsonInput(value);
     try {
@@ -20,13 +30,13 @@ export const JsonEditor: React.FC<JsonEditorProps> = ({ onJsonChange }) => {
     }
   };
 
+
   return (
     <div className="h-full bg-white dark:bg-gray-900 overflow-hidden">
       <div className="h-full p-3">
         <textarea
           value={jsonInput}
           onChange={(e) => handleInputChange(e.target.value)}
-          placeholder="Paste your JSON here..."
           className={`w-full h-full p-4 rounded-md font-mono text-sm 
             bg-gray-50 dark:bg-gray-900 
             text-gray-900 dark:text-white

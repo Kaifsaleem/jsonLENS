@@ -1,0 +1,46 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "name": "John Doe",
+            "email": "john@example.com",
+            "isActive": true,
+            "age": 28,
+            "tags": [
+                "developer",
+                "frontend"
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Jane Smith",
+            "email": "jane@example.com",
+            "isActive": false,
+            "age": 34,
+            "tags": [
+                "manager",
+                "backend"
+            ]
+        }
+    ],
+    "products": [
+        {
+            "id": "p1",
+            "name": "Laptop",
+            "price": 1299.99,
+            "inStock": true,
+            "category": "electronics"
+        },
+        {
+            "id": "p2",
+            "name": "Headphones",
+            "price": 199.99,
+            "inStock": true,
+            "category": "accessories"
+        }
+    ],
+    "settings": {
+        "darkMode": true,
+        "notifications": false
+    }
+}

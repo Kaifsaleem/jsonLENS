@@ -2,10 +2,12 @@ import { useState } from 'react';
 import { JsonEditor } from '../components/JsonEditor/JsonEditor';
 import { QueryEditor } from '../components/QueryEditor/QueryEditor';
 import { ResultView } from '../components/ResultView/ResultView';
+// import { JsEditor } from '../components/JsEditor/JsEditor';
 export function JsonFilterPage() {
   const [jsonData, setJsonData] = useState<unknown>(null);
   const [result, setResult] = useState<unknown>(null);
   const [error, setError] = useState<string | null>(null);
+  const [queryType, setQueryType] = useState<'filter' | 'map'>('filter');
 
   const handleJsonChange = (json: string) => {
     try {
@@ -41,8 +43,8 @@ export function JsonFilterPage() {
       const filtered = filterFn(jsonData);
       setResult(filtered);
       setError(null);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Query execution failed');
+    } catch (error) {
+      setError(error instanceof Error ? error.message : 'Query execution failed');
       setResult(null);
     }
 
@@ -54,26 +56,58 @@ export function JsonFilterPage() {
       return;
     }
     if (queryType === 'filter') {
-      // console.log(queryType);
-      // console.log(query);
       handleFilterQuery(query);
     }
     else if (queryType === 'map') {
-      // Handle map query here
-      // For now, just set the result to the original data
-      setResult(jsonData);
+      try {
+        // First line of query must reference 'data'
+        // if (!query.trim().startsWith('data.')) {
+        //   throw new Error('in query must return your answer');
+        // }
+
+        const functionBody = `${query}`;
+        
+        const mapFn = new Function('data', functionBody);
+        const mapped = mapFn(jsonData);
+        setResult(mapped);
+        setError(null);
+      } catch (error) {
+        setError(error instanceof Error ? error.message : 'Map operation failed');
+        setResult(null);
+      }
     }
   
   };
 
   return (
     <div className='container flex flex-row h-full w-full'>
-      <div className="container flex flex-col h-full w-full p-0.5 gap-x-1">
-      <JsonEditor onJsonChange={handleJsonChange} />
-      <QueryEditor onQueryExecute={handleQueryExecute} jsonData={jsonData} />
+      <div className="container flex flex-col h-full w-full p-0.5 gap-4">
+        <JsonEditor onJsonChange={handleJsonChange} />
+        {/* {jsonData !== null && ( */}
+          <>
+            <QueryEditor 
+              onQueryExecute={handleQueryExecute} 
+              jsonData={jsonData} 
+              onQueryTypeChange={setQueryType}
+            />
+            {/* {queryType === 'map' && (
+              <JsEditor onCodeSubmit={(code) => handleQueryExecute(code, 'map')} />
+            )} */}
+          </>
+        {/* // )} */}
       </div>
       <div className="container w-full h-full">
-      <ResultView result={result} error={error} />
+        <ResultView 
+          result={result} 
+          error={error}
+          onReset={() => {
+            setResult(null);
+            setError(null);
+          }}
+          onCut={() => {
+            setResult(null);
+          }}
+        />
       </div>
     </div>
   );
