@@ -1,0 +1,55 @@
+/* Custom dropdown styles with scrollbar support */
+.custom-select {
+  position: relative;
+  width: 100%;
+}
+
+.custom-select select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-position: right 0.5rem center;
+  background-size: 1.5em 1.5em;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  max-height: 300px;
+}
+
+/* Limiting the dropdown height and adding scrollbar */
+.custom-select select[size] {
+  max-height: 10rem;
+  overflow-y: auto;
+}
+
+/* Style scrollbar for webkit browsers */
+.custom-select select::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.custom-select select::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-select select::-webkit-scrollbar-thumb {
+  background-color: rgba(37, 99, 235, 0.5);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+.dark .custom-select select::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 152, 0, 0.5);
+}
+
+.custom-select select::-webkit-scrollbar-thumb:hover {
+  background-color: #2563eb;
+}
+
+.dark .custom-select select::-webkit-scrollbar-thumb:hover {
+  background-color: #ff9800;
+}
+
+/* Set the size attribute programmatically based on options count */
+.custom-select select.with-scroll {
+  size: 10;
+}

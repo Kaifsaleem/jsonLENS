@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import emailjs from '@emailjs/browser';
+import { DropdownDemo } from '../components/Dropdown/DropdownDemo';
 
 // const SERVICE_ID = 'service_5epetiz';
 // const TEMPLATE_ID = 'template_3mu8a4j';
@@ -48,7 +49,7 @@ export default function Contact() {
   return (
     <div className="max-w-2xl mx-auto">
       <h1 className="text-3xl font-bold mb-8 text-center text-light-primary dark:text-dark-primary">Contact Us</h1>
-      <div className="bg-light-background dark:bg-dark-background shadow-lg rounded-lg p-8 border border-light-border dark:border-dark-border">
+      <div className="bg-light-background dark:bg-dark-background shadow-lg rounded-lg p-8 border border-light-border dark:border-dark-border mb-8">
         {status === 'success' ? (
           <div className="p-4 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-100 rounded-lg text-center">
             Thank you for your message! We'll get back to you soon.
@@ -111,6 +112,11 @@ export default function Contact() {
             )}
           </form>
         )}
+      </div>
+      
+      {/* Dropdown Component Demo */}
+      <div className="bg-light-background dark:bg-dark-background shadow-lg rounded-lg p-8 border border-light-border dark:border-dark-border mb-8">
+        <DropdownDemo title="Dropdown Component Demo" />
       </div>
     </div>
   );

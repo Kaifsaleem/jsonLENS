@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { JsonEditor } from '../components/JsonEditor/JsonEditor';
 import { QueryEditor } from '../components/QueryEditor/QueryEditor';
 import { ResultView } from '../components/ResultView/ResultView';
+// import { Dropdown } from '../components/Dropdown';
 // import { JsEditor } from '../components/JsEditor/JsEditor';
 export function JsonFilterPage() {
   const [jsonData, setJsonData] = useState<unknown>(null);
