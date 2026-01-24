@@ -180,7 +180,12 @@ const findFieldInfo = (path: string, root: FieldInfo | null): FieldInfo | null =
       else if (!['circular-reference', 'max-depth-reached'].includes(info.type)) {
           const style = { paddingLeft: `${indent * 20}px` };
           options.push(
-            <option key={info.path} value={info.path} style={style}>
+            <option 
+              key={info.path} 
+              value={info.path} 
+              style={style}
+              className="bg-light-background dark:bg-dark-background text-light-primary dark:text-dark-primary"
+            >
               {key} ({info.type})
             </option>
           );
